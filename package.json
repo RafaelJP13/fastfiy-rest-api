@@ -1,0 +1,17 @@
+{
+  "name": "fastfy-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon ./src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^3.18.0",
+    "fastify-swagger": "^4.7.0",
+    "uui": "^1.0.7"
+  }
+}
