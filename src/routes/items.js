@@ -1,4 +1,4 @@
-const items = require('../../Items')
+const {getItems, getItem} = require('../controllers/Item')
 
 const Item = {
 
@@ -20,11 +20,9 @@ const getItemsOpts = {
             }
         }
     },
-    handler: function(req, reply) {
-
-        reply.send(items)
-    }
+    handler: getItems
     
+
 }
 
 const getItemOpts = {
@@ -36,14 +34,8 @@ const getItemOpts = {
         }
     },
 
-    handler:function(req, reply){
-
-        const {id} = req.params
-        const item = items.find(item => item.id === id)
+    handler:getItem
     
-        reply.send(item)
-    }
-
 }
 
 const itemRoutes = (fastify, options, done) =>{
