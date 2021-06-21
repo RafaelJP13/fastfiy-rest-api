@@ -1,9 +1,7 @@
 const items = require('../../Items')
 
-
 const Item = {
 
-  
     type:'object',
     properties:{
         id: {type:'string'},
@@ -21,10 +19,13 @@ const getItemsOpts = {
             items:Item
             }
         }
+    },
+    handler: function(req, reply) {
+
+        reply.send(items)
     }
+    
 }
-
-
 
 const getItemOpts = {
 
@@ -33,30 +34,22 @@ const getItemOpts = {
         200:Item,
 
         }
+    },
+
+    handler:function(req, reply){
+
+        const {id} = req.params
+        const item = items.find(item => item.id === id)
+    
+        reply.send(item)
     }
 
 }
 
-
-
-
 const itemRoutes = (fastify, options, done) =>{
 
-    fastify.get('/items', getItemsOpts, (req, reply) => {
-
-        reply.send(items)
-
-    })
-
-
-    fastify.get('/items/:id', getItemOpts, (req, reply) => {
-
-        const {id} = req.params
-        const item = items.find(item => item.id === id)
-
-        reply.send(item)
-
-    })
+    fastify.get('/items', getItemsOpts)
+    fastify.get('/items/:id', getItemOpts)
 
     done()
 
