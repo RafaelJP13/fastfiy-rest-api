@@ -1,2 +1,7 @@
 # Fastify
-An crash course using fastify framework that increases 20% performance in response requests than express
+
+### GET ALL ITEMS
+GET http://localhost:5000/items HTTP/1.1
+
+### GET SINGLE ITEM
+GET http://localhost:5000/items/1 HTTP/1.1
