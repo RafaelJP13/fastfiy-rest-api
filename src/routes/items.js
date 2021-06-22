@@ -1,116 +1,113 @@
-import {getItems, getItem, addItem, deleteItem, updateItem} from '../controllers/Item'
+import {
+  getItems, getItem, addItem, deleteItem, updateItem,
+} from '../controllers/Item';
 
 const Item = {
 
-    type:'object',
-    properties:{
-        id: {type:'string'},
-        name: {type:'string'}
-        
-    }
-}
+  type: 'object',
+  properties: {
+    id: { type: 'string' },
+    name: { type: 'string' },
+
+  },
+};
 
 const getItemsOpts = {
 
-    schema:{
-        response:{
-            200:{
-            type:'array',
-            items:Item
-            }
-        }
+  schema: {
+    response: {
+      200: {
+        type: 'array',
+        items: Item,
+      },
     },
-    handler:getItems,
-    
+  },
+  handler: getItems,
 
-}
+};
 
 const getItemOpts = {
 
-    schema:{
+  schema: {
 
-    response:{
+    response: {
 
-        200:Item,
+      200: Item,
 
-        }
     },
+  },
 
-    handler:getItem,
-    
-}
+  handler: getItem,
+
+};
 
 const postItemOpts = {
 
-    schema:{
+  schema: {
 
-        body:{
+    body: {
 
-            type:'object',
-            required:['name'],
-            properties:{
-                name:{
-                    type:'string'
-                }
-            }
-
+      type: 'object',
+      required: ['name'],
+      properties: {
+        name: {
+          type: 'string',
         },
-
-        201:Item,
+      },
 
     },
 
-    handler:addItem,
-}
+    201: Item,
+
+  },
+
+  handler: addItem,
+};
 
 const deleteItemOpts = {
 
-    schema:{
+  schema: {
 
-        response:{
+    response: {
 
-            200:{
+      200: {
 
-                type:'object',
-                properties:{
+        type: 'object',
+        properties: {
 
-                message:{type:'string'}
+          message: { type: 'string' },
 
-                }
-            }
-            
-        }
+        },
+      },
 
     },
 
-    handler:deleteItem,
+  },
 
-}
+  handler: deleteItem,
+
+};
 
 const updateItemOpts = {
 
-    schema:{
-        response:{
-            200: Item,
-        },
+  schema: {
+    response: {
+      200: Item,
     },
+  },
 
-    handler:updateItem,
+  handler: updateItem,
 
-}
+};
 
+const itemRoutes = (fastify, options, done) => {
+  fastify.get('/items', getItemsOpts);
+  fastify.get('/items/:id', getItemOpts);
+  fastify.post('/items', postItemOpts);
+  fastify.delete('/items/:id', deleteItemOpts);
+  fastify.put('/items/:id', updateItemOpts);
 
+  done();
+};
 
-const itemRoutes = (fastify, options, done) =>{
-
-    fastify.get('/items', getItemsOpts)
-    fastify.get('/items/:id', getItemOpts)
-    fastify.post('/items', postItemOpts)
-    fastify.delete('/items/:id', deleteItemOpts)
-    fastify.put('/items/:id', updateItemOpts)
-
-    done()
-
-}
-
-export default itemRoutes
+export default itemRoutes;
