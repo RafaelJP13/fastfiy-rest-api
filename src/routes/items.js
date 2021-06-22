@@ -1,4 +1,4 @@
-const {getItems, getItem} = require('../controllers/Item')
+import {getItems, getItem, addItem} from '../controllers/Item'
 
 const Item = {
 
@@ -20,7 +20,7 @@ const getItemsOpts = {
             }
         }
     },
-    handler: getItems
+    handler: getItems,
     
 
 }
@@ -34,17 +34,29 @@ const getItemOpts = {
         }
     },
 
-    handler:getItem
+    handler:getItem,
     
+}
+
+const postItemOpts = {
+
+    schema:{
+
+        201:Item,
+
+    },
+
+    handler:addItem,
 }
 
 const itemRoutes = (fastify, options, done) =>{
 
     fastify.get('/items', getItemsOpts)
     fastify.get('/items/:id', getItemOpts)
+    fastify.post('/items', postItemOpts)
 
     done()
 
 }
 
-module.exports = itemRoutes
+export default itemRoutes
