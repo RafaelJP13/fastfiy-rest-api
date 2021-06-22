@@ -20,7 +20,7 @@ const getItemsOpts = {
             }
         }
     },
-    handler: getItems,
+    handler:getItems,
     
 
 }

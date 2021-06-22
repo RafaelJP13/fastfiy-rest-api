@@ -1,12 +1,13 @@
-const items = require('../../Items')
+let items = require('../../Items')
+import { v4 as uuidv4}  from 'uuid'
 
-const getItems = (req, reply) => {
+export const getItems = (req, reply) => {
 
     reply.send(items)
 
 }
 
-const getItem = (req, reply) => {
+export const getItem = (req, reply) => {
     
     const {id} = req.params
     const item = items.find(item => item.id === id)
@@ -15,9 +16,18 @@ const getItem = (req, reply) => {
 
 }
 
-module.exports = {
+export const addItem = (req, reply) => {
 
-    getItems,
-    getItem,
+    const {name} = req.body
+
+    const item = {
+
+        id:uuidv4(),
+        name,
+    }
+
+    items = [...items, item]
+
+    reply.code(201).send(item)
 
 }

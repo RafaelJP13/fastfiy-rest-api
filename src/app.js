@@ -1,5 +1,5 @@
 const fastify = require('fastify')({logger:true})
-const items = require('../Items')
+import items from'../Items'
 fastify.register(require('./routes/items'))
 
 const PORT = 5000
