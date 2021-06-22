@@ -1,4 +1,4 @@
-import {getItems, getItem, addItem} from '../controllers/Item'
+import {getItems, getItem, addItem, deleteItem, updateItem} from '../controllers/Item'
 
 const Item = {
 
@@ -28,7 +28,9 @@ const getItemsOpts = {
 const getItemOpts = {
 
     schema:{
+
     response:{
+
         200:Item,
 
         }
@@ -42,6 +44,18 @@ const postItemOpts = {
 
     schema:{
 
+        body:{
+
+            type:'object',
+            required:['name'],
+            properties:{
+                name:{
+                    type:'string'
+                }
+            }
+
+        },
+
         201:Item,
 
     },
@@ -49,11 +63,51 @@ const postItemOpts = {
     handler:addItem,
 }
 
+const deleteItemOpts = {
+
+    schema:{
+
+        response:{
+
+            200:{
+
+                type:'object',
+                properties:{
+
+                message:{type:'string'}
+
+                }
+            }
+            
+        }
+
+    },
+
+    handler:deleteItem,
+
+}
+
+const updateItemOpts = {
+
+    schema:{
+        response:{
+            200: Item,
+        },
+    },
+
+    handler:updateItem,
+
+}
+
+
+
 const itemRoutes = (fastify, options, done) =>{
 
     fastify.get('/items', getItemsOpts)
     fastify.get('/items/:id', getItemOpts)
     fastify.post('/items', postItemOpts)
+    fastify.delete('/items/:id', deleteItemOpts)
+    fastify.put('/items/:id', updateItemOpts)
 
     done()
 
